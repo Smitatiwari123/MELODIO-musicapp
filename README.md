@@ -63,6 +63,10 @@ Made with ❤️ using JavaScript
 
 This project is licensed under the MIT License.
 
+## 🌐 Live Demo
+
+https://your-username.github.io/melodio-music-player
+
 
 ## ⚙ How to Run the Project
 
