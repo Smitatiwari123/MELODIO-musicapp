@@ -30,7 +30,7 @@ cover: "https://i.ytimg.com/vi/6sP-QH1MQMA/maxresdefault.jpg"
 {
 title: "Apna Bana Le",
 artist: "Arijit Singh",
-src: "https://drive.google.com/uc?export=download&id=134-T3PohBcaEcfhHNYF-n9i-HLU-6lAG",
+src: "https://drive.google.com/uc?id=134-T3PohBcaEcfhHNYF-n9i-HLU-6lAG",
 cover: "https://i.ytimg.com/vi/ElZfdU54Cp8/maxresdefault.jpg"
 },
 
