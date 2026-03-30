@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* ================= FONTS ================= */
 @font-face { font-family: "RobloxStyle"; src: url("fonts/roblox.ttf") format("truetype"); }
 @font-face { font-family: "TaglineFont"; src: url("fonts/myheart.woff2") format("woff2"), url("fonts/myheart.woff") format("woff"), url("fonts/myheart.ttf") format("truetype"), url("fonts/myheart.otf") format("opentype"); }
@@ -193,4 +194,201 @@ body {
     color:#ffffff; 
     text-align:center; 
     text-shadow:0 0 12px rgba(255,255,255,0.35); 
+=======
+/* ================= FONTS ================= */
+@font-face { font-family: "RobloxStyle"; src: url("fonts/roblox.ttf") format("truetype"); }
+@font-face { font-family: "TaglineFont"; src: url("fonts/myheart.woff2") format("woff2"), url("fonts/myheart.woff") format("woff"), url("fonts/myheart.ttf") format("truetype"), url("fonts/myheart.otf") format("opentype"); }
+@font-face { font-family: "RocketBush"; src: url("fonts/RocketBrush.otf") format("opentype"); }
+@font-face { font-family: "GODOFWAR"; src: url("fonts/GODOFWAR.TTF") format("truetype"); }
+
+/* ================= ROOT ================= */
+:root { 
+    --accent:#22c55e; 
+    --accent2:#4ade80; 
+    --text:#e5e7eb; 
+    --muted:#9ca3af; 
+    font-family: "Poppins", system-ui; 
+}
+* { box-sizing:border-box; }
+
+/* ================= BODY ================= */
+body {
+  margin:0;
+  background-image: linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.28)), url("https://e0.pxfuel.com/wallpapers/540/471/desktop-wallpaper-aesthetics-background-gif-for-music.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color:var(--text);
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+/* ================= HEADER ================= */
+.app-header{ 
+    position:absolute; top:30px; left:50%; transform:translateX(-50%); text-align:center; 
+}
+.app-header h1{ 
+    margin:0; 
+    font-size:78px; 
+    letter-spacing:12px; 
+    font-family:"RobloxStyle", sans-serif; 
+    color:#4ade80; 
+    text-transform:uppercase; 
+    text-shadow: 0 0 10px #22c55e,0 0 20px #22c55e,0 0 40px #22c55e; 
+}
+
+/* ================= CARD ================= */
+.card{
+  position:relative;
+  width:1000px;
+  padding:24px;
+  border-radius:22px;
+  background:rgba(73, 129, 133, 0);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.05);
+  transition:0.3s;
+  box-shadow:0 0 20px rgb(34, 197, 94),0 0 40px rgba(34,197,94,0.2),0 0 80px rgba(34,197,94,0.15),0 25px 60px rgba(0,0,0,0.6);
+}
+.card:hover{ transform:translateY(-5px); }
+
+/* ================= PLAYER LAYOUT ================= */
+.player{ display:flex; gap:20px; }
+
+/* ================= COVER ================= */
+.cover{ 
+    display:block; margin:0 auto; width:290px; height:180px; border-radius:14px; object-fit:cover; 
+    box-shadow:0 10px 30px rgba(0,0,0,0.6); transition:0.3s; 
+}
+.cover:hover{ transform:scale(1.05); }
+
+/* ================= META ================= */
+.meta{ flex:1; display:flex; flex-direction:column; gap:14px; }
+.title{ font-size:24px; font-weight:600; }
+.artist{ color:var(--muted); font-size:14px; }
+
+/* ================= VISUALIZER ================= */
+#visualizer{ width:100%; height:80px; margin-top:10px; border-radius:10px; background:rgba(0,0,0,0.25); }
+
+/* ================= PROGRESS ================= */
+.progress-container{ height:8px; background:#1f2937; border-radius:999px; cursor:pointer; overflow:hidden; }
+.progress{ height:100%; width:0%; background:linear-gradient(90deg,#22c55e,#4ade80); box-shadow:0 0 10px #22c55e; transition:width 0.1s linear; }
+.time-row{ display:flex; justify-content:space-between; font-size:13px; color:var(--muted); }
+
+/* ================= CONTROLS ================= */
+.controls{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:15px;
+  margin-top:20px;
+}
+
+/* Main buttons row: prev, play/pause, next */
+.controls .btn-row{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+}
+
+/* Shuffle & repeat row */
+.controls .btn-row-shuffle{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+}
+
+/* Volume row */
+.controls .vol{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  align-items:center;
+}
+
+.btn{ 
+    background:#1f2937; border:0; color:white; cursor:pointer; font-size:18px; padding:10px; border-radius:10px; transition:0.25s; 
+}
+.btn:hover{ background:#374151; transform:scale(1.12); }
+.btn.primary{ background:linear-gradient(90deg,var(--accent),var(--accent2)); color:black; font-weight:700; }
+
+/* ================= PLAYLIST WRAPPER ================= */
+.playlist-wrapper{ display:flex; flex-direction:row; gap:20px; align-items:flex-start; }
+
+/* ================= PLAYLIST ================= */
+.playlist{
+  width:350px;
+  min-width:350px;
+  height:600px;
+  border-left:1px solid rgba(255,255,255,0.08);
+  padding:16px;
+  background:rgba(0,0,0,0.25);
+  border-radius:12px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+}
+.playlist h3{ 
+    margin:0 auto 10px auto; 
+    font-size:24px; 
+    font-family: "RocketBush", sans-serif; 
+    letter-spacing: 2px; 
+    color: #ffffff; 
+    text-align: center; 
+}
+.search{ 
+    width:100%; padding:8px; border-radius:6px; border:none; margin-bottom:10px; 
+    background:#111827; color:#ffffff; 
+}
+.upload-btn{ 
+    display:block; text-align:center; padding:10px; margin-bottom:10px; border-radius:10px; cursor:pointer; 
+    font-weight:600; background:linear-gradient(90deg,#22c55e,#4ade80,#22c55e); 
+    background-size:200%; animation:btnMove 4s linear infinite; color:#000000; 
+}
+.playlist-list{ 
+    list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; flex-grow:1; overflow:auto; 
+}
+
+/* ================= PLAYLIST SONGS FONT (VISUAL ONLY) ================= */
+.playlist-list li .meta strong span,
+.playlist-list li .meta div span {
+    font-family: "GODOFWAR", sans-serif;
+    color:#f3f4f6;
+    font-size:16px;
+}
+
+.playlist-list li{ 
+    padding:10px; border-radius:10px; background:#111827; cursor:pointer; display:flex; justify-content:space-between; align-items:center; transition:0.25s; 
+}
+.playlist-list li:hover{ background:#1f2937; transform:translateX(6px); }
+.playlist-list li.active{ background:linear-gradient(90deg,#22c55e,#4ade80); color:black; font-weight:600; transform:scale(1.03); }
+
+/* ================= INSTRUCTIONS ================= */
+.instructions{
+  width:250px;
+  padding:16px;
+  font-family:"GODOFWAR", sans-serif;
+  color:#111827;
+  font-size:16px;
+  line-height:1.5;
+  text-align:left;
+  overflow:auto;
+  height:600px;
+}
+
+/* ================= FOOTER ================= */
+.app-footer{ position:absolute; bottom:18px; width:100%; text-align:center; font-size:15px; color:#e5e7eb; opacity:0.9; }
+
+/* ================= TAGLINE ================= */
+.tagline{ 
+    margin-top:20px; 
+    font-size:35px; 
+    font-family:"TaglineFont", sans-serif; 
+    letter-spacing:3px; 
+    color:#ffffff; 
+    text-align:center; 
+    text-shadow:0 0 12px rgba(255,255,255,0.35); 
+>>>>>>> cdefce56a089c1a508faa2cd864bc13a83a7066a
 }
