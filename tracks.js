@@ -2,14 +2,14 @@ const TRACKS = [
 {
 title: "Apna Bana Le",
 artist: "Arijit Singh",
-src: "./songs/ApnaBanale.mp3",
+src: "songs/ApnaBanale.mp3",
 cover: "https://i.ytimg.com/vi/11AQjgYybZk/maxresdefault.jpg"
 },
 
 {
 title: "Ban Ja Rani",
 artist: "Guru Randhawa",
-src: "./songs/BanJaRani.mp3",
+src: "BanJaRani.mp3",
 cover: "https://i.ytimg.com/vi/hlvbDjksdCg/maxresdefault.jpg"
 },
 
@@ -23,14 +23,14 @@ cover: "https://i.ytimg.com/vi/Qhl0bocazGQ/maxresdefault.jpg"
 {
 title: "Chaleya",
 artist: "Arijit Singh",
-src: "./songs/Chaleya.mp3",
+src: "chaleya.mp3",
 cover: "https://www.redchillies.com/wp-content/uploads/2023/11/News-6-Chaleya-Banner.jpg"
 },
 
 {
 title: "Heeriye",
 artist: "Jasleen Royal",
-src: "./songs/Heeriye.mp3",
+src: "./songs/heeriye.mp3",
 cover: "https://i.ytimg.com/vi/RLzC55ai0eo/maxresdefault.jpg"
 },
 
