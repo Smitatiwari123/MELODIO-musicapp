@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Melodio Music Player</title>
+
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="app-header">
+<h1>MELODIO</h1>
+</header>
+
+<main class="card">
+
+<section class="player">
+
+<div class="now-playing">
+
+<img id="cover" class="cover" src="https://picsum.photos/300">
+
+<canvas id="visualizer"></canvas>
+
+<div class="meta">
+
+<div id="trackTitle" class="title">Track Title</div>
+<div id="trackArtist" class="artist">Artist</div>
+
+<div class="progress-wrap">
+<div id="progressContainer" class="progress-container">
+<div id="progress" class="progress"></div>
+</div>
+
+<div class="time-row">
+<span id="currentTime">0:00</span>
+<span id="duration">0:00</span>
+</div>
+</div>
+
+<div class="controls">
+
+  <!-- Main buttons row: Prev / Play-Pause / Next -->
+  <div class="btn-row">
+    <button id="prevBtn" class="btn">⏮</button>
+    <button id="playPauseBtn" class="btn primary">▶</button>
+    <button id="nextBtn" class="btn">⏭</button>
+  </div>
+
+  <!-- Shuffle / Repeat row -->
+  <div class="btn-row-shuffle">
+    <button id="shuffleBtn" class="btn">🔀</button>
+    <button id="repeatBtn" class="btn">🔁</button>
+  </div>
+
+  <!-- Volume row -->
+  <div class="vol">
+    <button id="muteBtn" class="btn">🔈</button>
+    <input id="volume" type="range" min="0" max="1" step="0.01" value="0.8">
+  </div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+<aside class="playlist-wrapper">
+
+<aside class="playlist">
+
+<h3> P l a y l i s t </h3>
+
+<input type="text" id="searchSong" placeholder="Search song..." class="search">
+
+<label class="upload-btn">
+Add Songs
+<input type="file" id="fileInput" accept="audio/*" multiple hidden>
+</label>
+
+<ol id="playlistList" class="playlist-list"></ol>
+
+</aside>
+
+<aside class="instructions">
+    <p><strong>~ Keyboard Controls :</strong></p>
+    <p style="color:#ffffff;">1. ▶ / ⏸ : Play / Pause ( Spacebar )</p>
+    <p style="color:#ffffff;">2. ⏭ / ⏮ : Next / Previous Track ( Arrow Right  /  Left )</p>
+    <p style="color:#ffffff;">3. 🔊 Volume Up / Down ( Arrow Up  /  Down )</p>
+    <p style="color:#ffffff;">4. Shuffle : Click 🔀 | Repeat : Click 🔁</p>
+    <hr>
+    <p><strong>~ FROM MELODIO :</strong></p>
+    <p style="color:#ffffff;">" Your music. Your vibe. Keep pushing forward and stay in the groove ! "</p>
+</aside>
+
+</aside>
+
+</section>
+
+<audio id="audio"></audio>
+
+</main>
+
+<p class="tagline">Your life. Your audio — Melodio.</p>
+
+<footer class="app-footer">
+Made with ❤️ by AS | Melodio Music Player
+</footer>
+
+<script src="tracks.js"></script>
+<script src="player.js"></script>
+
+</body>
+</html>
