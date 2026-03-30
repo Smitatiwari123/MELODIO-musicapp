@@ -1,202 +1,212 @@
-/* ================= GOOGLE FONT ================= */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+/* ================= FONTS ================= */
+@font-face { font-family: "RobloxStyle"; src: url("fonts/roblox.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "TaglineFont"; src: url("fonts/myheart.woff2") format("woff2"), url("fonts/myheart.woff") format("woff"), url("fonts/myheart.ttf") format("truetype"), url("fonts/myheart.otf") format("opentype"); font-display: swap; }
+@font-face { font-family: "RocketBush"; src: url("fonts/RocketBrush.otf") format("opentype"); font-display: swap; }
+@font-face { font-family: "GODOFWAR"; src: url("fonts/GODOFWAR.TTF") format("truetype"); font-display: swap; }
 
-/* ================= RESET ================= */
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+/* ================= ROOT ================= */
+:root { 
+    --accent:#22c55e; 
+    --accent2:#4ade80; 
+    --text:#e5e7eb; 
+    --muted:#9ca3af; 
+    font-family: "Poppins", system-ui; 
 }
+* { box-sizing:border-box; }
 
 /* ================= BODY ================= */
-body{
-font-family:'Poppins',sans-serif;
-background: linear-gradient(135deg,#020617,#0f172a,#020617);
-color:white;
-min-height:100vh;
+body {
+  margin:0;
+  background-image: linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.28)), url("https://e0.pxfuel.com/wallpapers/540/471/desktop-wallpaper-aesthetics-background-gif-for-music.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding-top:120px;
 }
 
 /* ================= HEADER ================= */
-.app-header{
-position:fixed;
-top:25px;
-left:50%;
-transform:translateX(-50%);
-z-index:100;
+.app-header{ 
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    text-align:center;
+    z-index:10;
+}
+.app-header h1{ 
+    margin:0; 
+    font-size:78px; 
+    letter-spacing:12px; 
+    font-family:"RobloxStyle", sans-serif; 
+    color:#4ade80; 
+    text-transform:uppercase; 
+    text-shadow: 0 0 10px #22c55e,0 0 20px #22c55e,0 0 40px #22c55e; 
 }
 
-.app-header h1{
-font-size:46px;
-letter-spacing:6px;
-color:#22c55e;
-text-shadow:0 0 10px #22c55e66;
-}
-
-/* ================= LAYOUT ================= */
-.playlist-wrapper{
-margin-top:120px;
-display:flex;
-justify-content:center;
-gap:30px;
-width:1100px;
-max-width:95%;
-margin-left:auto;
-margin-right:auto;
-}
-
-/* ================= PLAYER CARD ================= */
+/* ================= CARD ================= */
 .card{
-flex:1;
-background:#0f172a;
-border-radius:22px;
-padding:25px;
-box-shadow:0 10px 40px rgba(0,0,0,0.6);
+  position:relative;
+  width:1000px;
+  padding:24px;
+  border-radius:22px;
+  background:rgba(0,0,0,0.35);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.05);
+  transition:0.3s;
+  box-shadow:0 0 20px rgb(34, 197, 94),0 0 40px rgba(34,197,94,0.2),0 0 80px rgba(34,197,94,0.15),0 25px 60px rgba(0,0,0,0.6);
 }
+.card:hover{ transform:translateY(-5px); }
 
-/* ================= PLAYER ================= */
-.player{
-display:flex;
-gap:20px;
-align-items:center;
-}
+/* ================= PLAYER LAYOUT ================= */
+.player{ display:flex; gap:20px; }
 
 /* ================= COVER ================= */
-.cover{
-width:320px;
-height:200px;
-object-fit:cover;
-border-radius:16px;
-box-shadow:0 10px 25px rgba(0,0,0,0.5);
+.cover{ 
+    display:block; margin:0 auto; width:290px; height:180px; border-radius:14px; object-fit:cover; 
+    box-shadow:0 10px 30px rgba(0,0,0,0.6); transition:0.3s; 
 }
+.cover:hover{ transform:scale(1.05); }
 
-/* ================= SONG INFO ================= */
-.meta{
-flex:1;
-display:flex;
-flex-direction:column;
-gap:8px;
-}
+/* ================= META ================= */
+.meta{ flex:1; display:flex; flex-direction:column; gap:14px; }
+.title{ font-size:24px; font-weight:600; }
+.artist{ color:var(--muted); font-size:14px; }
 
-.title{
-font-size:26px;
-font-weight:600;
-}
+/* ================= VISUALIZER ================= */
+#visualizer{ width:100%; height:80px; margin-top:10px; border-radius:10px; background:rgba(0,0,0,0.25); }
 
-.artist{
-opacity:0.7;
-font-size:15px;
-}
-
-/* ================= PROGRESS BAR ================= */
-.progress-container{
-height:8px;
-background:#1e293b;
-border-radius:10px;
-margin-top:12px;
-cursor:pointer;
-}
-
-.progress{
-height:100%;
-width:0%;
-background:linear-gradient(90deg,#22c55e,#4ade80);
-border-radius:10px;
-}
+/* ================= PROGRESS ================= */
+.progress-container{ height:8px; background:#1f2937; border-radius:999px; cursor:pointer; overflow:hidden; }
+.progress{ height:100%; width:0%; background:linear-gradient(90deg,#22c55e,#4ade80); box-shadow:0 0 10px #22c55e; transition:width 0.1s linear; }
+.time-row{ display:flex; justify-content:space-between; font-size:13px; color:var(--muted); }
 
 /* ================= CONTROLS ================= */
 .controls{
-margin-top:22px;
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:14px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:15px;
+  margin-top:20px;
 }
 
-.btn-row{
-display:flex;
-gap:15px;
+.controls .btn-row{
+  display:flex;
+  justify-content:center;
+  gap:15px;
 }
 
-.btn{
-background:#1e293b;
-border:none;
-color:white;
-padding:10px 16px;
-border-radius:12px;
-cursor:pointer;
-font-size:15px;
-transition:0.2s;
+.controls .btn-row-shuffle{
+  display:flex;
+  justify-content:center;
+  gap:15px;
 }
 
-.btn:hover{
-background:#22c55e;
-color:black;
+.controls .vol{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  align-items:center;
 }
+
+.btn{ 
+    background:#1f2937; border:0; color:white; cursor:pointer; font-size:18px; padding:10px; border-radius:10px; transition:0.25s; 
+}
+.btn:hover{ background:#374151; transform:scale(1.12); }
+.btn.primary{ background:linear-gradient(90deg,var(--accent),var(--accent2)); color:black; font-weight:700; }
+
+/* ================= PLAYLIST WRAPPER ================= */
+.playlist-wrapper{ display:flex; flex-direction:row; gap:20px; align-items:flex-start; }
 
 /* ================= PLAYLIST ================= */
 .playlist{
-width:330px;
-background:#0f172a;
-padding:20px;
-border-radius:22px;
-box-shadow:0 10px 40px rgba(0,0,0,0.6);
-display:flex;
-flex-direction:column;
+  width:350px;
+  min-width:350px;
+  height:600px;
+  border-left:1px solid rgba(255,255,255,0.08);
+  padding:16px;
+  background:rgba(0,0,0,0.35);
+  border-radius:12px;
+  display:flex;
+  flex-direction:column;
+}
+.playlist h3{ 
+    margin:0 auto 10px auto; 
+    font-size:24px; 
+    font-family: "RocketBush", sans-serif; 
+    letter-spacing: 2px; 
+    color: #ffffff; 
+    text-align: center; 
 }
 
-.playlist h3{
-margin-bottom:10px;
+.search{ 
+    width:100%; padding:8px; border-radius:6px; border:none; margin-bottom:10px; 
+    background:#111827; color:#ffffff; 
 }
 
-/* ================= SEARCH ================= */
-.search{
-padding:9px;
-border:none;
-border-radius:10px;
-margin-bottom:12px;
-background:#1e293b;
-color:white;
+.upload-btn{ 
+    display:block; text-align:center; padding:10px; margin-bottom:10px; border-radius:10px; cursor:pointer; 
+    font-weight:600; background:linear-gradient(90deg,#22c55e,#4ade80,#22c55e); 
+    background-size:200%; animation:btnMove 4s linear infinite; color:#000000; 
 }
 
-/* ================= SONG LIST ================= */
-.playlist-list{
-list-style:none;
-display:flex;
-flex-direction:column;
-gap:8px;
-overflow-y:auto;
-max-height:430px;
+.playlist-list{ 
+    list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; flex-grow:1; overflow:auto; 
 }
 
-.playlist-list li{
-padding:11px 14px;
-background:#1e293b;
-border-radius:12px;
-cursor:pointer;
-transition:0.2s;
-font-size:14px;
+/* ================= PLAYLIST SONG FONT ================= */
+.playlist-list li .meta strong span,
+.playlist-list li .meta div span {
+    font-family: "GODOFWAR", sans-serif;
+    color:#f3f4f6;
+    font-size:16px;
 }
 
-.playlist-list li:hover{
-background:#22c55e;
-color:black;
-transform:translateX(6px);
+.playlist-list li{ 
+    padding:10px; border-radius:10px; background:#111827; cursor:pointer; display:flex; justify-content:space-between; align-items:center; transition:0.25s; 
+}
+.playlist-list li:hover{ background:#1f2937; transform:translateX(6px); }
+.playlist-list li.active{ background:linear-gradient(90deg,#22c55e,#4ade80); color:black; font-weight:600; transform:scale(1.03); }
+
+/* ================= INSTRUCTIONS ================= */
+.instructions{
+  width:250px;
+  padding:16px;
+  font-family:"GODOFWAR", sans-serif;
+  color:#ffffff;
+  font-size:16px;
+  line-height:1.6;
+  text-align:left;
+  height:600px;
+  overflow:auto;
 }
 
-/* ================= SCROLLBAR ================= */
-.playlist-list::-webkit-scrollbar{
-width:6px;
-}
-
-.playlist-list::-webkit-scrollbar-thumb{
-background:#22c55e;
-border-radius:10px;
+/* DARK TEXT FIX */
+.instructions strong{
+  color:#f80303;
+  font-weight:700;
 }
 
 /* ================= FOOTER ================= */
-.app-footer{
-text-align:center;
-margin-top:40px;
-opacity:0.6;
-font-size:14px;
+.app-footer{ position:fixed; bottom:18px; width:100%; text-align:center; font-size:15px; color:#e5e7eb; opacity:0.9; }
+
+/* ================= TAGLINE ================= */
+.tagline{ 
+    margin-top:20px; 
+    font-size:35px; 
+    font-family:"TaglineFont", sans-serif; 
+    letter-spacing:3px; 
+    color:#ffffff; 
+    text-align:center; 
+    text-shadow:0 0 12px rgba(255,255,255,0.35); 
+}
+
+/* ================= BUTTON ANIMATION ================= */
+@keyframes btnMove{
+  0%{background-position:0%}
+  100%{background-position:200%}
 }

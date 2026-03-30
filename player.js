@@ -109,7 +109,7 @@ playlist.addEventListener("click", (e) => {
     }
 });
 
-// ================= RECENTLY PLAYED =================
+// ================= RECENT =================
 function saveRecent(i){
     recent = recent.filter(r => r != i);
     recent.unshift(i);
@@ -119,7 +119,7 @@ function saveRecent(i){
     localStorage.setItem("recent", JSON.stringify(recent));
 }
 
-// ================= NOW PLAYING UI =================
+// ================= NOW PLAYING =================
 function updateNowPlayingUI(){
     [...playlist.children].forEach(li=>{
         const eq = li.querySelector(".equalizer");
@@ -183,6 +183,34 @@ function prevTrack(){
 nextBtn.onclick = nextTrack;
 prevBtn.onclick = prevTrack;
 
+// ================= KEYBOARD CONTROLS (ADDED) =================
+document.addEventListener("keydown", (e)=>{
+
+    if(e.code === "Space"){
+        e.preventDefault();
+        playing ? pause() : play();
+    }
+
+    if(e.code === "ArrowRight"){
+        nextTrack();
+    }
+
+    if(e.code === "ArrowLeft"){
+        prevTrack();
+    }
+
+    if(e.code === "ArrowUp"){
+        audio.volume = Math.min(audio.volume + 0.1, 1);
+        volume.value = audio.volume;
+    }
+
+    if(e.code === "ArrowDown"){
+        audio.volume = Math.max(audio.volume - 0.1, 0);
+        volume.value = audio.volume;
+    }
+
+});
+
 // ================= SHUFFLE / REPEAT =================
 shuffleBtn.onclick = ()=>{
     shuffle = !shuffle;
@@ -221,7 +249,6 @@ audio.ontimeupdate = ()=>{
     let p = (audio.currentTime / audio.duration)*100 || 0;
     progress.style.width = p+"%";
     currentTimeEl.textContent = format(audio.currentTime);
-
     localStorage.setItem("lastTime", audio.currentTime);
 };
 
@@ -236,7 +263,7 @@ function format(sec){
     return `${m}:${s}`;
 }
 
-// ================= PROGRESS CLICK =================
+// ================= PROGRESS =================
 progressBox.onclick = e => {
     const rect = progressBox.getBoundingClientRect();
     const pct = (e.clientX - rect.left)/rect.width;
@@ -264,9 +291,7 @@ search.addEventListener("input", () => {
     [...playlist.children].forEach(li => {
         const i = li.dataset.i;
         const track = TRACKS[i];
-
         const text = (track.title + " " + track.artist).toLowerCase();
-
         li.style.display = text.includes(value) ? "flex" : "none";
     });
 });
@@ -289,7 +314,8 @@ fileInput.addEventListener("change", (e)=>{
     buildPlaylist();
 });
 
-// ================= VISUALIZER =================
+/* ================= VISUALIZER FIX ================= */
+
 const canvas = $("visualizer");
 const ctx = canvas.getContext("2d");
 
@@ -302,25 +328,33 @@ window.addEventListener("resize", resizeCanvas);
 
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 const analyser = audioCtx.createAnalyser();
+
 let source;
 
 audio.addEventListener("play", () => {
+
     if(!source){
         source = audioCtx.createMediaElementSource(audio);
         source.connect(analyser);
         analyser.connect(audioCtx.destination);
     }
+
+    audioCtx.resume();
     drawVisualizer();
 });
 
 analyser.fftSize = 256;
+
 const bufferLength = analyser.frequencyBinCount;
 const dataArray = new Uint8Array(bufferLength);
 
 function drawVisualizer(){
     requestAnimationFrame(drawVisualizer);
+
     analyser.getByteTimeDomainData(dataArray);
+
     ctx.clearRect(0,0,canvas.width,canvas.height);
+
     ctx.beginPath();
 
     let sliceWidth = canvas.width / bufferLength;
@@ -329,8 +363,13 @@ function drawVisualizer(){
     for(let i=0;i<bufferLength;i++){
         let v = dataArray[i]/128.0;
         let y = v*(canvas.height/2);
-        if(i===0) ctx.moveTo(x,y);
-        else ctx.lineTo(x,y);
+
+        if(i===0){
+            ctx.moveTo(x,y);
+        }else{
+            ctx.lineTo(x,y);
+        }
+
         x+=sliceWidth;
     }
 
@@ -339,8 +378,6 @@ function drawVisualizer(){
     ctx.lineWidth=2;
     ctx.stroke();
 }
-
-document.body.addEventListener("click", ()=> audioCtx.resume());
 
 // ================= START =================
 init();
