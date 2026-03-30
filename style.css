@@ -1,186 +1,202 @@
-/* ================= FONTS ================= */
-@font-face { font-family: "RobloxStyle"; src: url("fonts/roblox.ttf") format("truetype"); }
-@font-face { font-family: "TaglineFont"; src: url("fonts/myheart.woff2") format("woff2"), url("fonts/myheart.woff") format("woff"), url("fonts/myheart.ttf") format("truetype"); }
-@font-face { font-family: "RocketBush"; src: url("fonts/RocketBrush.otf") format("opentype"); }
-@font-face { font-family: "GODOFWAR"; src: url("fonts/GODOFWAR.TTF") format("truetype"); }
+/* ================= GOOGLE FONT ================= */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
-/* ================= ROOT ================= */
-:root{
---accent:#22c55e;
---accent2:#4ade80;
---text:#e5e7eb;
---muted:#9ca3af;
-font-family:"Poppins", system-ui;
+/* ================= RESET ================= */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
-*{box-sizing:border-box}
 
 /* ================= BODY ================= */
 body{
-margin:0;
-background-image:linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.3)),
-url("https://e0.pxfuel.com/wallpapers/540/471/desktop-wallpaper-aesthetics-background-gif-for-music.jpg");
-background-size:cover;
-background-position:center;
-background-attachment:fixed;
-color:var(--text);
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
+font-family:'Poppins',sans-serif;
+background: linear-gradient(135deg,#020617,#0f172a,#020617);
+color:white;
+min-height:100vh;
 }
 
 /* ================= HEADER ================= */
 .app-header{
-position:absolute;
-top:30px;
+position:fixed;
+top:25px;
 left:50%;
 transform:translateX(-50%);
-}
-.app-header h1{
-font-size:78px;
-letter-spacing:12px;
-font-family:"RobloxStyle";
-color:#4ade80;
-text-shadow:0 0 20px #22c55e;
+z-index:100;
 }
 
-/* ================= CARD ================= */
+.app-header h1{
+font-size:46px;
+letter-spacing:6px;
+color:#22c55e;
+text-shadow:0 0 10px #22c55e66;
+}
+
+/* ================= LAYOUT ================= */
+.playlist-wrapper{
+margin-top:120px;
+display:flex;
+justify-content:center;
+gap:30px;
+width:1100px;
+max-width:95%;
+margin-left:auto;
+margin-right:auto;
+}
+
+/* ================= PLAYER CARD ================= */
 .card{
-width:1000px;
-padding:24px;
+flex:1;
+background:#0f172a;
 border-radius:22px;
-backdrop-filter:blur(10px);
-box-shadow:0 0 40px rgba(34,197,94,0.3);
+padding:25px;
+box-shadow:0 10px 40px rgba(0,0,0,0.6);
 }
 
 /* ================= PLAYER ================= */
-.player{display:flex;gap:20px}
-
-.cover{
-width:290px;
-height:180px;
-border-radius:14px;
-object-fit:cover;
-}
-
-/* ================= META ================= */
-.meta{flex:1;display:flex;flex-direction:column;gap:14px}
-.title{font-size:24px;font-weight:600}
-.artist{color:var(--muted)}
-
-/* ================= VISUALIZER ================= */
-#visualizer{
-width:100%;
-height:80px;
-background:rgba(0,0,0,0.3);
-border-radius:10px;
-}
-
-/* ================= PROGRESS ================= */
-.progress-container{
-height:8px;
-background:#1f2937;
-border-radius:999px;
-cursor:pointer;
-}
-.progress{
-height:100%;
-width:0%;
-background:linear-gradient(90deg,#22c55e,#4ade80);
-}
-
-/* ================= CONTROLS ================= */
-.controls{
+.player{
 display:flex;
-flex-direction:column;
+gap:20px;
 align-items:center;
-gap:15px;
-margin-top:20px;
-}
-.btn-row{display:flex;gap:15px}
-.btn-row-shuffle{display:flex;gap:15px}
-.vol{display:flex;gap:10px}
-
-.btn{
-background:#1f2937;
-border:0;
-color:white;
-cursor:pointer;
-padding:10px;
-border-radius:10px;
-}
-.btn.primary{
-background:linear-gradient(90deg,#22c55e,#4ade80);
-color:black;
 }
 
-/* ================= PLAYLIST ================= */
-.playlist-wrapper{display:flex;gap:20px}
-
-.playlist{
-width:350px;
-height:600px;
-background:rgba(0,0,0,0.25);
-border-radius:12px;
-padding:16px;
-display:flex;
-flex-direction:column;
+/* ================= COVER ================= */
+.cover{
+width:320px;
+height:200px;
+object-fit:cover;
+border-radius:16px;
+box-shadow:0 10px 25px rgba(0,0,0,0.5);
 }
 
-.search{
-padding:8px;
-border-radius:6px;
-border:none;
-margin-bottom:10px;
-background:#111827;
-color:white;
-}
-
-.upload-btn{
-text-align:center;
-padding:10px;
-margin-bottom:10px;
-border-radius:10px;
-cursor:pointer;
-background:linear-gradient(90deg,#22c55e,#4ade80);
-color:black;
-font-weight:600;
-}
-
-.playlist-list{
-list-style:none;
-padding:0;
-margin:0;
-overflow:auto;
+/* ================= SONG INFO ================= */
+.meta{
+flex:1;
 display:flex;
 flex-direction:column;
 gap:8px;
 }
 
-.playlist-list li{
-padding:10px;
-border-radius:10px;
-background:#111827;
-cursor:pointer;
-display:flex;
-justify-content:space-between;
-align-items:center;
+.title{
+font-size:26px;
+font-weight:600;
 }
 
-/* ================= TAGLINE ================= */
-.tagline{
-margin-top:20px;
-font-size:35px;
-font-family:"TaglineFont";
-letter-spacing:3px;
-text-align:center;
+.artist{
+opacity:0.7;
+font-size:15px;
+}
+
+/* ================= PROGRESS BAR ================= */
+.progress-container{
+height:8px;
+background:#1e293b;
+border-radius:10px;
+margin-top:12px;
+cursor:pointer;
+}
+
+.progress{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#22c55e,#4ade80);
+border-radius:10px;
+}
+
+/* ================= CONTROLS ================= */
+.controls{
+margin-top:22px;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:14px;
+}
+
+.btn-row{
+display:flex;
+gap:15px;
+}
+
+.btn{
+background:#1e293b;
+border:none;
+color:white;
+padding:10px 16px;
+border-radius:12px;
+cursor:pointer;
+font-size:15px;
+transition:0.2s;
+}
+
+.btn:hover{
+background:#22c55e;
+color:black;
+}
+
+/* ================= PLAYLIST ================= */
+.playlist{
+width:330px;
+background:#0f172a;
+padding:20px;
+border-radius:22px;
+box-shadow:0 10px 40px rgba(0,0,0,0.6);
+display:flex;
+flex-direction:column;
+}
+
+.playlist h3{
+margin-bottom:10px;
+}
+
+/* ================= SEARCH ================= */
+.search{
+padding:9px;
+border:none;
+border-radius:10px;
+margin-bottom:12px;
+background:#1e293b;
+color:white;
+}
+
+/* ================= SONG LIST ================= */
+.playlist-list{
+list-style:none;
+display:flex;
+flex-direction:column;
+gap:8px;
+overflow-y:auto;
+max-height:430px;
+}
+
+.playlist-list li{
+padding:11px 14px;
+background:#1e293b;
+border-radius:12px;
+cursor:pointer;
+transition:0.2s;
+font-size:14px;
+}
+
+.playlist-list li:hover{
+background:#22c55e;
+color:black;
+transform:translateX(6px);
+}
+
+/* ================= SCROLLBAR ================= */
+.playlist-list::-webkit-scrollbar{
+width:6px;
+}
+
+.playlist-list::-webkit-scrollbar-thumb{
+background:#22c55e;
+border-radius:10px;
 }
 
 /* ================= FOOTER ================= */
 .app-footer{
-position:absolute;
-bottom:18px;
-width:100%;
 text-align:center;
+margin-top:40px;
+opacity:0.6;
+font-size:14px;
 }
