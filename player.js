@@ -32,27 +32,10 @@ let shuffle = false;
 let repeat = "off";
 let lastVolume = volume.value;
 
-// Local Storage Data
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-let recent = JSON.parse(localStorage.getItem("recent")) || [];
-
-let savedTrack = localStorage.getItem("lastTrack");
-let savedTime = localStorage.getItem("lastTime");
-
 // ================= INIT =================
 function init(){
     buildPlaylist();
-
-    if(savedTrack){
-        index = Number(savedTrack);
-    }
-
     loadTrack(index);
-
-    if(savedTime){
-        audio.currentTime = savedTime;
-    }
-
     audio.volume = volume.value;
 }
 
@@ -64,19 +47,10 @@ function buildPlaylist(){
         const li = document.createElement("li");
         li.dataset.i = i;
 
-        const liked = favorites.includes(String(i)) ? "❤️" : "🤍";
-
         li.innerHTML = `
             <div class="meta">
                 <strong>${t.title}</strong>
                 <div>${t.artist}</div>
-            </div>
-
-            <div class="actions">
-                <button class="likeBtn">${liked}</button>
-                <div class="equalizer" style="display:none">
-                    <span></span><span></span><span></span>
-                </div>
             </div>
         `;
 
@@ -86,50 +60,6 @@ function buildPlaylist(){
             loadTrack(i);
             play();
         };
-    });
-}
-
-// ================= FAVORITES =================
-playlist.addEventListener("click", (e) => {
-    if (e.target.classList.contains("likeBtn")) {
-        e.stopPropagation();
-
-        const li = e.target.closest("li");
-        const i = li.dataset.i;
-
-        if (favorites.includes(i)) {
-            favorites = favorites.filter(f => f != i);
-            e.target.textContent = "🤍";
-        } else {
-            favorites.push(i);
-            e.target.textContent = "❤️";
-        }
-
-        localStorage.setItem("favorites", JSON.stringify(favorites));
-    }
-});
-
-// ================= RECENT =================
-function saveRecent(i){
-    recent = recent.filter(r => r != i);
-    recent.unshift(i);
-
-    if(recent.length > 10) recent.pop();
-
-    localStorage.setItem("recent", JSON.stringify(recent));
-}
-
-// ================= NOW PLAYING =================
-function updateNowPlayingUI(){
-    [...playlist.children].forEach(li=>{
-        const eq = li.querySelector(".equalizer");
-        if(li.dataset.i == index && playing){
-            eq.style.display = "flex";
-            li.classList.add("active");
-        }else{
-            eq.style.display = "none";
-            li.classList.remove("active");
-        }
     });
 }
 
@@ -143,26 +73,23 @@ function loadTrack(i){
     title.textContent = t.title;
     artist.textContent = t.artist;
 
-    localStorage.setItem("lastTrack", i);
-    saveRecent(i);
-
     audio.load();
-    updateNowPlayingUI();
 }
 
 // ================= PLAY / PAUSE =================
 function play(){
-    audio.play();
+    audio.play().catch(()=>{});
+    startVisualizer();
     playing = true;
     playBtn.textContent="⏸";
-    updateNowPlayingUI();
 }
+
 function pause(){
     audio.pause();
     playing = false;
     playBtn.textContent="▶";
-    updateNowPlayingUI();
 }
+
 playBtn.onclick = () => playing ? pause() : play();
 
 // ================= NEXT / PREV =================
@@ -175,15 +102,17 @@ function nextTrack(){
     loadTrack(index);
     play();
 }
+
 function prevTrack(){
     index=(index-1+TRACKS.length)%TRACKS.length;
     loadTrack(index);
     play();
 }
+
 nextBtn.onclick = nextTrack;
 prevBtn.onclick = prevTrack;
 
-// ================= KEYBOARD CONTROLS (ADDED) =================
+// ================= KEYBOARD CONTROLS =================
 document.addEventListener("keydown", (e)=>{
 
     if(e.code === "Space"){
@@ -191,13 +120,8 @@ document.addEventListener("keydown", (e)=>{
         playing ? pause() : play();
     }
 
-    if(e.code === "ArrowRight"){
-        nextTrack();
-    }
-
-    if(e.code === "ArrowLeft"){
-        prevTrack();
-    }
+    if(e.code === "ArrowRight") nextTrack();
+    if(e.code === "ArrowLeft") prevTrack();
 
     if(e.code === "ArrowUp"){
         audio.volume = Math.min(audio.volume + 0.1, 1);
@@ -211,45 +135,11 @@ document.addEventListener("keydown", (e)=>{
 
 });
 
-// ================= SHUFFLE / REPEAT =================
-shuffleBtn.onclick = ()=>{
-    shuffle = !shuffle;
-    shuffleBtn.style.opacity = shuffle ? 1 : 0.5;
-};
-
-repeatBtn.onclick = ()=>{
-    if(repeat==="off"){
-        repeat="one";
-        repeatBtn.textContent="🔂";
-    }
-    else if(repeat==="one"){
-        repeat="all";
-        repeatBtn.textContent="🔁";
-    }
-    else{
-        repeat="off";
-        repeatBtn.textContent="🔁";
-    }
-};
-
 // ================= AUDIO EVENTS =================
-audio.onended = ()=>{
-    if(repeat==="one"){
-        audio.currentTime = 0;
-        play();
-    } else if(repeat==="all"){
-        nextTrack();
-    } else {
-        if(index < TRACKS.length-1) nextTrack();
-        else pause();
-    }
-};
-
 audio.ontimeupdate = ()=>{
     let p = (audio.currentTime / audio.duration)*100 || 0;
     progress.style.width = p+"%";
     currentTimeEl.textContent = format(audio.currentTime);
-    localStorage.setItem("lastTime", audio.currentTime);
 };
 
 audio.onloadedmetadata = ()=>{
@@ -296,25 +186,7 @@ search.addEventListener("input", () => {
     });
 });
 
-// ================= FILE UPLOAD =================
-fileInput.addEventListener("change", (e)=>{
-    const files = [...e.target.files];
-
-    files.forEach(file=>{
-        const url = URL.createObjectURL(file);
-
-        TRACKS.push({
-            title: file.name.replace(".mp3",""),
-            artist: "Local Upload",
-            src: url,
-            cover: "https://picsum.photos/300"
-        });
-    });
-
-    buildPlaylist();
-});
-
-/* ================= VISUALIZER FIX ================= */
+// ================= VISUALIZER =================
 
 const canvas = $("visualizer");
 const ctx = canvas.getContext("2d");
@@ -326,26 +198,28 @@ function resizeCanvas(){
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
 
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-const analyser = audioCtx.createAnalyser();
-
+let audioCtx;
+let analyser;
 let source;
 
-audio.addEventListener("play", () => {
+function startVisualizer(){
 
-    if(!source){
+    if(!audioCtx){
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioCtx.createAnalyser();
+
         source = audioCtx.createMediaElementSource(audio);
         source.connect(analyser);
         analyser.connect(audioCtx.destination);
+
+        analyser.fftSize = 256;
     }
 
     audioCtx.resume();
     drawVisualizer();
-});
+}
 
-analyser.fftSize = 256;
-
-const bufferLength = analyser.frequencyBinCount;
+const bufferLength = 128;
 const dataArray = new Uint8Array(bufferLength);
 
 function drawVisualizer(){
