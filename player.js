@@ -36,7 +36,7 @@ let lastVolume = volume.value;
 function init(){
     buildPlaylist();
     loadTrack(index);
-    audio.volume = 1; // ensure initial audible volume
+    audio.volume = volume.value;
 }
 
 // ================= PLAYLIST =================
@@ -73,17 +73,12 @@ function loadTrack(i){
     title.textContent = t.title;
     artist.textContent = t.artist;
 
-    audio.volume = 1; // ensure audible
-    audio.muted = false;
-
     audio.load();
 }
 
 // ================= PLAY / PAUSE =================
 function play(){
-    audio.play().catch(()=>{
-        console.log("User interaction required to play audio.");
-    });
+    audio.play().catch(()=>{});
     startVisualizer();
     playing = true;
     playBtn.textContent="⏸";
@@ -115,7 +110,7 @@ function prevTrack(){
 }
 
 nextBtn.onclick = nextTrack;
-prevBtn.onclick = prevTrack();
+prevBtn.onclick = prevTrack;
 
 // ================= KEYBOARD CONTROLS =================
 document.addEventListener("keydown", (e)=>{
