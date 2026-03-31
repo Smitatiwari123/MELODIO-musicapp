@@ -37,6 +37,13 @@ function init(){
     buildPlaylist();
     loadTrack(index);
     audio.volume = volume.value;
+
+    // Ensure AudioContext starts on user interaction
+    document.addEventListener('click', () => {
+        if(audioCtx && audioCtx.state === 'suspended'){
+            audioCtx.resume();
+        }
+    }, { once: true });
 }
 
 // ================= PLAYLIST =================
@@ -78,7 +85,9 @@ function loadTrack(i){
 
 // ================= PLAY / PAUSE =================
 function play(){
-    audio.play().catch(()=>{});
+    audio.play().catch(e=>{
+        console.log("Autoplay blocked, wait for user interaction");
+    });
     startVisualizer();
     playing = true;
     playBtn.textContent="⏸";
@@ -187,7 +196,6 @@ search.addEventListener("input", () => {
 });
 
 // ================= VISUALIZER =================
-
 const canvas = $("visualizer");
 const ctx = canvas.getContext("2d");
 
@@ -215,7 +223,10 @@ function startVisualizer(){
         analyser.fftSize = 256;
     }
 
-    audioCtx.resume();
+    if(audioCtx.state === 'suspended'){
+        audioCtx.resume();
+    }
+
     drawVisualizer();
 }
 
