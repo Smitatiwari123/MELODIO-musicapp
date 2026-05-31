@@ -65,7 +65,7 @@ This project is licensed under the MIT License.
 
 ## 🌐 Live Demo
 
-https://smitatiwari123.github.io/melodio-music-player
+https://smitatiwari123.github.io/MELODIO-musicapp
 
 
 ## ⚙ How to Run the Project
